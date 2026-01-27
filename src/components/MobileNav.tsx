@@ -13,7 +13,6 @@ export default function MobileNav() {
   const pathname = usePathname();
   const [activeTab, setActiveTab] = useState("home");
 
-  // Reset active tab to 'home' only if we navigate to the homepage proper
   useEffect(() => {
     if (pathname === "/" && !isCartOpen && !isSearchOpen && !isMenuOpen) {
         setActiveTab("home");
@@ -27,7 +26,6 @@ export default function MobileNav() {
       isLink: true, 
       href: "/",
       onClick: () => {
-         // Close other overlays if we go home
          if(isCartOpen) toggleCart();
          if(isSearchOpen) toggleSearch();
          if(isMenuOpen) toggleMenu();
@@ -38,8 +36,8 @@ export default function MobileNav() {
       id: "search", 
       icon: Search, 
       isLink: false, 
+      href: "#", // <--- ADDED FAKE HREF TO FIX TYPE ERROR
       onClick: () => { 
-          // If we are already here, do nothing or toggle off
           if (!isSearchOpen) {
               if (isCartOpen) toggleCart();
               if (isMenuOpen) toggleMenu();
@@ -52,6 +50,7 @@ export default function MobileNav() {
       id: "cart", 
       icon: ShoppingBag, 
       isLink: false, 
+      href: "#", // <--- ADDED FAKE HREF
       onClick: () => { 
           if (!isCartOpen) {
               if (isSearchOpen) toggleSearch();
@@ -65,6 +64,7 @@ export default function MobileNav() {
       id: "menu", 
       icon: Menu, 
       isLink: false, 
+      href: "#", // <--- ADDED FAKE HREF
       onClick: () => { 
           if (!isMenuOpen) {
               if (isCartOpen) toggleCart();
@@ -77,7 +77,6 @@ export default function MobileNav() {
   ];
 
   return (
-    // z-[100] ensures it sits ON TOP of the Menu/Search overlays (which are usually z-50 to z-90)
     <div className="fixed bottom-8 left-0 right-0 z-[100] flex justify-center px-6 pointer-events-none">
         
         <div className="pointer-events-auto bg-[#0a0a0a]/90 backdrop-blur-xl border border-white/10 rounded-full p-2 shadow-2xl flex items-center gap-1">
@@ -110,6 +109,7 @@ export default function MobileNav() {
                 <div key={item.id} className="relative group">
                 {SlidingBackground}
                 {item.isLink ? (
+                    // Now item.href is guaranteed to be a string
                     <Link href={item.href} onClick={item.onClick} className="block relative">
                     {ButtonContent}
                     </Link>
