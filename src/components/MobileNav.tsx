@@ -36,7 +36,7 @@ export default function MobileNav() {
       id: "search", 
       icon: Search, 
       isLink: false, 
-      href: "#", // <--- ADDED FAKE HREF TO FIX TYPE ERROR
+      href: "#", 
       onClick: () => { 
           if (!isSearchOpen) {
               if (isCartOpen) toggleCart();
@@ -50,7 +50,7 @@ export default function MobileNav() {
       id: "cart", 
       icon: ShoppingBag, 
       isLink: false, 
-      href: "#", // <--- ADDED FAKE HREF
+      href: "#", 
       onClick: () => { 
           if (!isCartOpen) {
               if (isSearchOpen) toggleSearch();
@@ -64,7 +64,7 @@ export default function MobileNav() {
       id: "menu", 
       icon: Menu, 
       isLink: false, 
-      href: "#", // <--- ADDED FAKE HREF
+      href: "#", 
       onClick: () => { 
           if (!isMenuOpen) {
               if (isCartOpen) toggleCart();
@@ -78,18 +78,20 @@ export default function MobileNav() {
 
   return (
     <div className="fixed bottom-8 left-0 right-0 z-[100] flex justify-center px-6 pointer-events-none">
-        
-        <div className="pointer-events-auto bg-[#0a0a0a]/90 backdrop-blur-xl border border-white/10 rounded-full p-2 shadow-2xl flex items-center gap-1">
+        {/* CHANGED: Opacity to /60 for better glass effect */}
+        <div className="pointer-events-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-full p-2 shadow-2xl flex items-center gap-1">
             {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
 
+            // Content inside the button
             const ButtonContent = (
                 <div className="relative z-10 p-3 md:p-4 transition-colors duration-200">
                 <Icon 
                     size={20} 
                     strokeWidth={2} 
-                    className={`transition-colors duration-200 ${isActive ? "text-black" : "text-white/60 group-hover:text-white"}`} 
+                    // CHANGED: Improved text contrast
+                    className={`transition-colors duration-200 ${isActive ? "text-black" : "text-white/70 group-hover:text-white"}`} 
                 />
                 {item.id === "cart" && totalItems > 0 && (
                     <span className="absolute top-2 right-2 bg-rose-500 w-2 h-2 rounded-full border border-[#111111]" />
@@ -97,10 +99,13 @@ export default function MobileNav() {
                 </div>
             );
 
+            // CHANGED: Stronger shadow and explicitly white background
             const SlidingBackground = isActive && (
                 <motion.div
                 layoutId="nav-pill"
-                className="absolute inset-0 bg-white rounded-full shadow-[0_0_15px_rgba(255,255,255,0.4)]"
+                className="absolute inset-0 bg-white rounded-full"
+                // Added a stronger glow effect
+                style={{ boxShadow: "0 0 20px rgba(255, 255, 255, 0.5)" }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
             );
@@ -109,7 +114,6 @@ export default function MobileNav() {
                 <div key={item.id} className="relative group">
                 {SlidingBackground}
                 {item.isLink ? (
-                    // Now item.href is guaranteed to be a string
                     <Link href={item.href} onClick={item.onClick} className="block relative">
                     {ButtonContent}
                     </Link>
