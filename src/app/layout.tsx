@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import SmoothScroll from "@/components/SmoothScroll";
+import SearchOverlay from "@/components/SearchOverlay";
+import MenuOverlay from "@/components/MenuOverlay";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -25,8 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <SmoothScroll /> {/* Enable smooth scrolling */}
+          <SearchOverlay /> {/* Search Overlay Component */}
+          <MenuOverlay /> {/* Menu Overlay Component */}
         {children}
       </body>
     </html>
