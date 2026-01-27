@@ -17,6 +17,7 @@ interface CartState {
   removeFromCart: (productId: string) => void;
   toggleCart: () => void;
   cartTotal: () => number;
+  clearCart: () => void;
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -45,4 +46,5 @@ export const useCartStore = create<CartState>((set, get) => ({
     const { cart } = get();
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   },
+  clearCart: () => set({ cart: [] }),
 }));
