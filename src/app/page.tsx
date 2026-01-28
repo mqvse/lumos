@@ -13,8 +13,8 @@ export default function Home() {
       {/* 1. BACKGROUND TYPOGRAPHY (The "Texture") */}
       {/* This sits behind everything as a texture */}
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
-        <h1 className="text-[25vw] font-serif text-[#111111] leading-none select-none whitespace-nowrap opacity-50">
-            LUMOS
+  <h1 className="text-[25vw] font-serif text-[#111111] leading-none select-none whitespace-nowrap opacity-50">
+      LUMOS
         </h1>
       </div>
 
